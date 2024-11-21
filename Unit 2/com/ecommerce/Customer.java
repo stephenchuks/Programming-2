@@ -3,6 +3,10 @@ package com.ecommerce;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Represents a customer with a shopping cart.
+ * Allows adding/removing products and viewing the cart.
+ */
 public class Customer {
     private int customerID;
     private String name;
@@ -24,35 +28,24 @@ public class Customer {
         return name;
     }
 
-    public List<Product> getShoppingCart() {
-        return shoppingCart;
-    }
-
-    // Add a product to the shopping cart
+    // Add product to the cart
     public void addToCart(Product product) {
         shoppingCart.add(product);
-    }
-
-    // Remove a product from the shopping cart
-    public void removeFromCart(Product product) {
-        shoppingCart.remove(product);
-    }
-
-    // Calculate the total cost of products in the cart
-    public double calculateTotalCost() {
-        double total = 0.0;
-        for (Product product : shoppingCart) {
-            total += product.getPrice();
-        }
-        return total;
+        System.out.println(product.getName() + " has been added to your cart.");
     }
 
     // Display the contents of the shopping cart
     public void displayCart() {
-        System.out.println("Shopping Cart:");
-        for (Product product : shoppingCart) {
-            System.out.println("- " + product.getName() + " ($" + product.getPrice() + ")");
+        if (shoppingCart.isEmpty()) {
+            System.out.println("Your shopping cart is empty.");
+        } else {
+            System.out.println("Your Shopping Cart:");
+            double total = 0;
+            for (Product product : shoppingCart) {
+                System.out.printf("Name: %s, Price: $%.2f%n", product.getName(), product.getPrice());
+                total += product.getPrice();
+            }
+            System.out.printf("Total: $%.2f%n", total);
         }
-        System.out.println("Total: $" + calculateTotalCost());
     }
 }

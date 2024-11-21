@@ -1,44 +1,49 @@
-/*
- * This program demonstrates a simple e-commerce system for an online store.
- * The system allows customers to browse products, add them to a shopping cart, 
- * and place orders. The code is organized into two packages: 
- * 
- * - com.ecommerce: Contains the Customer and Product classes.
- * - com.ecommerce.orders: Contains the Order class.
- * 
- * The main program showcases the functionality by creating products, 
- * adding them to a customer's cart, and placing an order. 
- * It emphasizes proper code organization using Java packages and the import statement.
- */
-
-
 import com.ecommerce.Customer;
 import com.ecommerce.Product;
 import com.ecommerce.orders.Order;
 
+import java.util.Scanner;
+
+/*
+ * Simulates a simple e-commerce system through a console-based interface.
+ */
 public class MainProgram {
     public static void main(String[] args) {
-        // Create products
-        Product product1 = new Product(1, "Laptop", 1200.00);
-        Product product2 = new Product(2, "Smartphone", 800.00);
-        Product product3 = new Product(3, "Headphones", 150.00);
+        Scanner scanner = new Scanner(System.in);
 
-        // Create customer
-        Customer customer = new Customer(101, "Alice");
+        // Create a customer
+        System.out.print("Enter your name: ");
+        String customerName = scanner.nextLine();
+        Customer customer = new Customer(101, customerName);
 
-        // Simulate customer shopping
-        customer.addToCart(product1);
-        customer.addToCart(product2);
-        customer.addToCart(product3);
+        // Simulate browsing and adding products
+        boolean keepShopping = true;
+        while (keepShopping) {
+            Product.displayProducts();
+            System.out.print("Enter the Product ID to add to cart (or 0 to finish): ");
+            int productID = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
 
-        // Display cart details
+            if (productID == 0) {
+                keepShopping = false;
+            } else {
+                Product product = Product.getProductByID(productID);
+                if (product != null) {
+                    customer.addToCart(product);
+                } else {
+                    System.out.println("Invalid Product ID. Please try again.");
+                }
+            }
+        }
+
+        // Display the cart
         customer.displayCart();
 
         // Place an order
-        Order order = new Order(2, customer);
-
-        // Display order summary
-        System.out.println("\nOrder Summary:");
+        System.out.println("Placing your order...");
+        Order order = new Order(1001, customer);
         order.displayOrderSummary();
+
+        scanner.close();
     }
 }
