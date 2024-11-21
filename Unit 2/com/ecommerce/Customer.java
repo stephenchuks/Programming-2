@@ -28,6 +28,11 @@ public class Customer {
         return name;
     }
 
+    // Public getter for the shopping cart
+    public List<Product> getShoppingCart() {
+        return shoppingCart;
+    }
+
     // Add product to the cart
     public void addToCart(Product product) {
         shoppingCart.add(product);

@@ -19,7 +19,7 @@ public class Order {
     public Order(int orderID, Customer customer) {
         this.orderID = orderID;
         this.customer = customer;
-        this.products = customer.shoppingCart; // Access the customer's cart
+        this.products = customer.getShoppingCart(); // Use getter to access the cart
         calculateTotal();
     }
 
